@@ -9,6 +9,9 @@ const github = axios.create({
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`
     }
 })
+export function getGithubClient() {
+  return github
+}
 
 export async function getRepoStats(owner: string, repo: string) {
     const response = await github.get(`/repos/${owner}/${repo}`)

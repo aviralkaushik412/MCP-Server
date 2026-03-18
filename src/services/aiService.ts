@@ -20,5 +20,5 @@ export async function summarizeText(text: string): Promise<string | null> {
     max_tokens: 1024
   })
 
-  return response.choices[0]?.message.content || null
+  return response.choices[0]?.message.content || "AI summary unavailable."
 }

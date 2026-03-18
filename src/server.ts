@@ -7,7 +7,7 @@ import { listOpenIssues } from "./tools/issues"
 import { getRepoContributors } from "./tools/contributors"   
 import { summarizePullRequest } from "./tools/pullRequest"
 import { formatRepoStats } from "./utils/formatters"
-import { dispatchTool } from "./tools/registery"
+import { dispatchTool } from "./tools/registry"
 import dotenv from 'dotenv'
 dotenv.config()
 
