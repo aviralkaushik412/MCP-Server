@@ -122,3 +122,33 @@ ${aiSummary}
 ### Links
 - [View PR](${pr.html_url})`
 }
+
+export function formatGoodFirstIssues(issues: any[], owner: string, repo: string): string {
+  if (issues.length === 0) {
+    return `## 🔍 No beginner-friendly issues found in ${owner}/${repo}\n\nThis repo may not label their issues, or there are none open right now.`
+  }
+
+  const issueLines = issues.map((issue: any) => {
+    const labels = issue.labels.map((l: any) => `\`${l.name}\``).join(', ')
+    const age = Math.floor(
+      (Date.now() - new Date(issue.created_at).getTime()) / (1000 * 60 * 60 * 24)
+    )
+    const difficulty = issue.comments > 5 ? '🔴 Active discussion'
+      : issue.comments > 0 ? '🟡 Some discussion'
+      : '🟢 Fresh — no comments yet'
+
+    return `### #${issue.number} — ${issue.title}
+- 🏷️ Labels: ${labels}
+- 📅 Opened: ${age} days ago
+- 💬 Comments: ${issue.comments} (${difficulty})
+- 🔗 [View Issue](${issue.html_url})`
+  }).join('\n\n')
+
+  return `## 🌱 Good First Issues in ${owner}/${repo}
+
+_${issues.length} beginner-friendly issue${issues.length > 1 ? 's' : ''} found_
+
+${issueLines}
+
+> 💡 Tip: Issues with 0 comments are easiest to claim — no one is working on them yet.`
+}

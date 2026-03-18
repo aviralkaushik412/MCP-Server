@@ -5,11 +5,13 @@ import { getRepoStats } from "../services/githubService"
 import { listOpenIssues } from "./issues"
 import { getRepoContributors } from "./contributors"
 import { summarizePullRequest } from "./pullRequest"
+import { findGoodFirstIssues } from "./goodFirstIssues"
 import {
   formatRepoStats,
   formatOpenIssues,
   formatContributors,
-  formatPullRequestSummary
+  formatPullRequestSummary,
+  formatGoodFirstIssues
 } from "../utils/formatters"
 
 // ─── Types ────────────────────────────────────────────────────
@@ -93,6 +95,22 @@ const tools: ToolDefinition[] = [
         pull_number as number
       )
       return formatPullRequestSummary(pr, summary)
+    }
+  },
+  {
+    name: "find_good_first_issues",
+    description: "Find beginner-friendly issues in a GitHub repository filtered by 'good first issue' and 'help wanted' labels. Use this when someone wants to contribute to open source or find easy issues to work on.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        owner: { type: "string", description: "Repository owner or organisation" },
+        repo:  { type: "string", description: "Repository name" }
+      },
+      required: ["owner", "repo"]
+    },
+    handler: async ({ owner, repo }) => {
+      const data = await findGoodFirstIssues(owner as string, repo as string)
+      return formatGoodFirstIssues(data, owner as string, repo as string)
     }
   }
 ]
