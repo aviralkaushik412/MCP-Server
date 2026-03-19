@@ -142,9 +142,9 @@ Add this:
 
 ### PR Summary with AI
 ![PR Summary](./screenshots/image-1.png)
-<!-- 
-### Good First Issues
-![Good First Issues](./screenshots/good-first-issues.png) -->
+
+### Current working
+![Good First Issues](./screenshots/image.png)
 
 ---
 
